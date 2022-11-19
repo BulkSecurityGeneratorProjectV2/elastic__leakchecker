@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.instrument.Instrumentation;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -73,7 +74,7 @@ public class LeakcheckerAgent {
             System.out.println("Loading from Jar");
 
             try {
-                final File tempDispatcherJar = File.createTempFile("leakchecker-dispatcher", ".jar");
+                final File tempDispatcherJar = Files.createTempFile("leakchecker-dispatcher", ".jar").toFile();
                 tempDispatcherJar.deleteOnExit();
 
                 try (InputStream input = LeakcheckerAgent.class.getClassLoader().getResourceAsStream("leakchecker-dispatcher.jar")) {
